@@ -8,9 +8,9 @@ type _Entity interface {
 }
 
 type Entity struct {
+	FindReviewByID   *Review  `json:"findReviewByID"`
 	FindUserByID     *User    `json:"findUserByID"`
 	FindProductByUpc *Product `json:"findProductByUpc"`
-	FindReviewByID   *Review  `json:"findReviewByID"`
 }
 
 type Product struct {

@@ -6,14 +6,14 @@ import (
 	"context"
 	"errors"
 
-	"github.com/99designs/gqlgen/graphql/introspection"
+	"github.com/99designs/gqlgen/plugin/federation"
 )
 
-func (ec *executionContext) __resolve__service(ctx context.Context) (introspection.Service, error) {
+func (ec *executionContext) __resolve__service(ctx context.Context) (federation.Service, error) {
 	if ec.DisableIntrospection {
-		return introspection.Service{}, errors.New("federated introspection disabled")
+		return federation.Service{}, errors.New("federated introspection disabled")
 	}
-	return introspection.Service{
+	return federation.Service{
 		SDL: `type Product @extends @key(fields: "upc") {
 	upc: String! @external
 	reviews: [Review]
@@ -42,6 +42,18 @@ func (ec *executionContext) __resolve_entities(ctx context.Context, representati
 		}
 		switch typeName {
 
+		case "Review":
+			id, ok := rep["id"].(string)
+			if !ok {
+				return nil, errors.New("opsies")
+			}
+			resp, err := ec.resolvers.Entity().FindReviewByID(ctx, id)
+			if err != nil {
+				return nil, err
+			}
+
+			list = append(list, resp)
+
 		case "User":
 			id, ok := rep["id"].(string)
 			if !ok {
@@ -60,18 +72,6 @@ func (ec *executionContext) __resolve_entities(ctx context.Context, representati
 				return nil, errors.New("opsies")
 			}
 			resp, err := ec.resolvers.Entity().FindProductByUpc(ctx, id)
-			if err != nil {
-				return nil, err
-			}
-
-			list = append(list, resp)
-
-		case "Review":
-			id, ok := rep["id"].(string)
-			if !ok {
-				return nil, errors.New("opsies")
-			}
-			resp, err := ec.resolvers.Entity().FindReviewByID(ctx, id)
 			if err != nil {
 				return nil, err
 			}

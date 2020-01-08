@@ -6,14 +6,14 @@ import (
 	"context"
 	"errors"
 
-	"github.com/99designs/gqlgen/graphql/introspection"
+	"github.com/99designs/gqlgen/plugin/federation"
 )
 
-func (ec *executionContext) __resolve__service(ctx context.Context) (introspection.Service, error) {
+func (ec *executionContext) __resolve__service(ctx context.Context) (federation.Service, error) {
 	if ec.DisableIntrospection {
-		return introspection.Service{}, errors.New("federated introspection disabled")
+		return federation.Service{}, errors.New("federated introspection disabled")
 	}
-	return introspection.Service{
+	return federation.Service{
 		SDL: `type Product @key(fields: "upc") {
 	upc: String!
 	name: String
@@ -45,6 +45,7 @@ func (ec *executionContext) __resolve_entities(ctx context.Context, representati
 			if err != nil {
 				return nil, err
 			}
+
 			list = append(list, resp)
 
 		default:

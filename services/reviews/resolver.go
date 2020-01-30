@@ -7,6 +7,12 @@ import (
 
 type Resolver struct{}
 
+// type mutationResolver struct{ *Resolver }
+
+// func (r *Resolver) Mutation() MutationResolver {
+// return &mutationResolver{r}
+// }
+
 func (r *Resolver) Entity() EntityResolver {
 	return &entityResolver{r}
 }

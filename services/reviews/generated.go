@@ -79,8 +79,8 @@ type ComplexityRoot struct {
 
 type EntityResolver interface {
 	FindReviewByID(ctx context.Context, id string) (*Review, error)
-	FindUserByID(ctx context.Context, id string) (*User, error)
 	FindProductByUpc(ctx context.Context, upc string) (*Product, error)
+	FindUserByID(ctx context.Context, id string) (*User, error)
 }
 
 type executableSchema struct {
@@ -301,7 +301,7 @@ scalar _Any
 """
 A union unifies all @entity types (TODO: interfaces)
 """
-union _Entity = Review | User | Product
+union _Entity = Review | Product | User
 scalar _FieldSet
 type _Service {
 	sdl: String!
@@ -460,47 +460,6 @@ func (ec *executionContext) _Entity_findReviewByID(ctx context.Context, field gr
 	return ec.marshalNReview2ᚖgithubᚗcomᚋmarwanᚑatᚑworkᚋfederationᚑdemoᚋservicesᚋreviewsᚐReview(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Entity_findUserByID(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:   "Entity",
-		Field:    field,
-		Args:     nil,
-		IsMethod: true,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Entity_findUserByID_args(ctx, rawArgs)
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	fc.Args = args
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Entity().FindUserByID(rctx, args["id"].(string))
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(*User)
-	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋmarwanᚑatᚑworkᚋfederationᚑdemoᚋservicesᚋreviewsᚐUser(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _Entity_findProductByUpc(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -540,6 +499,47 @@ func (ec *executionContext) _Entity_findProductByUpc(ctx context.Context, field 
 	res := resTmp.(*Product)
 	fc.Result = res
 	return ec.marshalNProduct2ᚖgithubᚗcomᚋmarwanᚑatᚑworkᚋfederationᚑdemoᚋservicesᚋreviewsᚐProduct(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Entity_findUserByID(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Entity",
+		Field:    field,
+		Args:     nil,
+		IsMethod: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Entity_findUserByID_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Entity().FindUserByID(rctx, args["id"].(string))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*User)
+	fc.Result = res
+	return ec.marshalNUser2ᚖgithubᚗcomᚋmarwanᚑatᚑworkᚋfederationᚑdemoᚋservicesᚋreviewsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Product_upc(ctx context.Context, field graphql.CollectedField, obj *Product) (ret graphql.Marshaler) {
@@ -2078,13 +2078,6 @@ func (ec *executionContext) __Entity(ctx context.Context, sel ast.SelectionSet, 
 			return graphql.Null
 		}
 		return ec._Review(ctx, sel, obj)
-	case User:
-		return ec._User(ctx, sel, &obj)
-	case *User:
-		if obj == nil {
-			return graphql.Null
-		}
-		return ec._User(ctx, sel, obj)
 	case Product:
 		return ec._Product(ctx, sel, &obj)
 	case *Product:
@@ -2092,6 +2085,13 @@ func (ec *executionContext) __Entity(ctx context.Context, sel ast.SelectionSet, 
 			return graphql.Null
 		}
 		return ec._Product(ctx, sel, obj)
+	case User:
+		return ec._User(ctx, sel, &obj)
+	case *User:
+		if obj == nil {
+			return graphql.Null
+		}
+		return ec._User(ctx, sel, obj)
 	default:
 		panic(fmt.Errorf("unexpected type %T", obj))
 	}
@@ -2130,20 +2130,6 @@ func (ec *executionContext) _Entity(ctx context.Context, sel ast.SelectionSet) g
 				}
 				return res
 			})
-		case "findUserByID":
-			field := field
-			out.Concurrently(i, func() (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._Entity_findUserByID(ctx, field)
-				if res == graphql.Null {
-					atomic.AddUint32(&invalids, 1)
-				}
-				return res
-			})
 		case "findProductByUpc":
 			field := field
 			out.Concurrently(i, func() (res graphql.Marshaler) {
@@ -2153,6 +2139,20 @@ func (ec *executionContext) _Entity(ctx context.Context, sel ast.SelectionSet) g
 					}
 				}()
 				res = ec._Entity_findProductByUpc(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			})
+		case "findUserByID":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Entity_findUserByID(ctx, field)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}

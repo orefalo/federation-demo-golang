@@ -54,24 +54,24 @@ func (ec *executionContext) __resolve_entities(ctx context.Context, representati
 
 			list = append(list, resp)
 
-		case "User":
-			id, ok := rep["id"].(string)
-			if !ok {
-				return nil, errors.New("opsies")
-			}
-			resp, err := ec.resolvers.Entity().FindUserByID(ctx, id)
-			if err != nil {
-				return nil, err
-			}
-
-			list = append(list, resp)
-
 		case "Product":
 			id, ok := rep["upc"].(string)
 			if !ok {
 				return nil, errors.New("opsies")
 			}
 			resp, err := ec.resolvers.Entity().FindProductByUpc(ctx, id)
+			if err != nil {
+				return nil, err
+			}
+
+			list = append(list, resp)
+
+		case "User":
+			id, ok := rep["id"].(string)
+			if !ok {
+				return nil, errors.New("opsies")
+			}
+			resp, err := ec.resolvers.Entity().FindUserByID(ctx, id)
 			if err != nil {
 				return nil, err
 			}

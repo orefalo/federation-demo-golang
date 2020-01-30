@@ -15,3 +15,7 @@ type Product @extends @key(fields: "upc") {
   upc: String! @external
   reviews: [Review]
 }
+
+# type Mutation @extends {
+  # createUser(user: UserInput!): User
+# }

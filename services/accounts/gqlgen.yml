@@ -5,7 +5,9 @@
 
 schema:
 - schema.graphql
-federated: true
+federation:
+    filename: pkg/resolvers/federated.go
+    package: resolvers
 
 exec:
   filename: pkg/resolvers/graphql_gen.go
@@ -20,8 +22,5 @@ resolver:
   type: Resolver
 
 models:
-  _Entity:
-    model: github.com/marwan-at-work/federation-demo/services/accounts/pkg/resolvers._Entity
-
   User:
     model: github.com/marwan-at-work/federation-demo/services/accounts/pkg/models.User

@@ -2,14 +2,6 @@
 
 package gql_types
 
-import (
-	"github.com/marwan-at-work/federation-demo/services/accounts/pkg/models"
-)
-
-type Entity struct {
-	FindUserByID *models.User `json:"findUserByID"`
-}
-
 type UserInput struct {
 	Name string `json:"name"`
 }

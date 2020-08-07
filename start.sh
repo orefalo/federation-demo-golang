@@ -8,16 +8,6 @@ function cleanup {
 }
 trap cleanup EXIT
 
-p=`pwd`
-echo $p
-cd $p/services/accounts
-go build -o /tmp/srv-accounts
-cd $p/services/products
-go build -o /tmp/srv-products
-cd $p/services/reviews
-go build -o /tmp/srv-reviews
-cd $p/services/inventory
-go build -o /tmp/srv-inventory
 
 /tmp/srv-accounts &
 ACCOUNTS_PID=$!
@@ -34,4 +24,4 @@ INVENTORY_PID=$!
 sleep 4
 
 cd $p/services/gateway
-ts-node index.ts
+node index.js

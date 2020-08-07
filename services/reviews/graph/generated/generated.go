@@ -473,7 +473,7 @@ func (ec *executionContext) _Entity_findProductByUpc(ctx context.Context, field 
 	}
 	res := resTmp.(*model.Product)
 	fc.Result = res
-	return ec.marshalNProduct2ᚖdih_modulesᚋreviewsᚋgraphᚋmodelᚐProduct(ctx, field.Selections, res)
+	return ec.marshalNProduct2ᚖservicesᚋreviewsᚋgraphᚋmodelᚐProduct(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Entity_findReviewByID(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -514,7 +514,7 @@ func (ec *executionContext) _Entity_findReviewByID(ctx context.Context, field gr
 	}
 	res := resTmp.(*model.Review)
 	fc.Result = res
-	return ec.marshalNReview2ᚖdih_modulesᚋreviewsᚋgraphᚋmodelᚐReview(ctx, field.Selections, res)
+	return ec.marshalNReview2ᚖservicesᚋreviewsᚋgraphᚋmodelᚐReview(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Entity_findUserByID(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -555,7 +555,7 @@ func (ec *executionContext) _Entity_findUserByID(ctx context.Context, field grap
 	}
 	res := resTmp.(*model.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖdih_modulesᚋreviewsᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖservicesᚋreviewsᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Product_upc(ctx context.Context, field graphql.CollectedField, obj *model.Product) (ret graphql.Marshaler) {
@@ -620,7 +620,7 @@ func (ec *executionContext) _Product_reviews(ctx context.Context, field graphql.
 	}
 	res := resTmp.([]*model.Review)
 	fc.Result = res
-	return ec.marshalOReview2ᚕᚖdih_modulesᚋreviewsᚋgraphᚋmodelᚐReview(ctx, field.Selections, res)
+	return ec.marshalOReview2ᚕᚖservicesᚋreviewsᚋgraphᚋmodelᚐReview(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query__entities(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -860,7 +860,7 @@ func (ec *executionContext) _Review_author(ctx context.Context, field graphql.Co
 	}
 	res := resTmp.(*model.User)
 	fc.Result = res
-	return ec.marshalOUser2ᚖdih_modulesᚋreviewsᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalOUser2ᚖservicesᚋreviewsᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Review_product(ctx context.Context, field graphql.CollectedField, obj *model.Review) (ret graphql.Marshaler) {
@@ -891,7 +891,7 @@ func (ec *executionContext) _Review_product(ctx context.Context, field graphql.C
 	}
 	res := resTmp.(*model.Product)
 	fc.Result = res
-	return ec.marshalOProduct2ᚖdih_modulesᚋreviewsᚋgraphᚋmodelᚐProduct(ctx, field.Selections, res)
+	return ec.marshalOProduct2ᚖservicesᚋreviewsᚋgraphᚋmodelᚐProduct(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *model.User) (ret graphql.Marshaler) {
@@ -987,7 +987,7 @@ func (ec *executionContext) _User_reviews(ctx context.Context, field graphql.Col
 	}
 	res := resTmp.([]*model.Review)
 	fc.Result = res
-	return ec.marshalOReview2ᚕᚖdih_modulesᚋreviewsᚋgraphᚋmodelᚐReview(ctx, field.Selections, res)
+	return ec.marshalOReview2ᚕᚖservicesᚋreviewsᚋgraphᚋmodelᚐReview(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) __Service_sdl(ctx context.Context, field graphql.CollectedField, obj *fedruntime.Service) (ret graphql.Marshaler) {
@@ -2630,11 +2630,11 @@ func (ec *executionContext) marshalNID2string(ctx context.Context, sel ast.Selec
 	return res
 }
 
-func (ec *executionContext) marshalNProduct2dih_modulesᚋreviewsᚋgraphᚋmodelᚐProduct(ctx context.Context, sel ast.SelectionSet, v model.Product) graphql.Marshaler {
+func (ec *executionContext) marshalNProduct2servicesᚋreviewsᚋgraphᚋmodelᚐProduct(ctx context.Context, sel ast.SelectionSet, v model.Product) graphql.Marshaler {
 	return ec._Product(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNProduct2ᚖdih_modulesᚋreviewsᚋgraphᚋmodelᚐProduct(ctx context.Context, sel ast.SelectionSet, v *model.Product) graphql.Marshaler {
+func (ec *executionContext) marshalNProduct2ᚖservicesᚋreviewsᚋgraphᚋmodelᚐProduct(ctx context.Context, sel ast.SelectionSet, v *model.Product) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -2644,11 +2644,11 @@ func (ec *executionContext) marshalNProduct2ᚖdih_modulesᚋreviewsᚋgraphᚋm
 	return ec._Product(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNReview2dih_modulesᚋreviewsᚋgraphᚋmodelᚐReview(ctx context.Context, sel ast.SelectionSet, v model.Review) graphql.Marshaler {
+func (ec *executionContext) marshalNReview2servicesᚋreviewsᚋgraphᚋmodelᚐReview(ctx context.Context, sel ast.SelectionSet, v model.Review) graphql.Marshaler {
 	return ec._Review(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNReview2ᚖdih_modulesᚋreviewsᚋgraphᚋmodelᚐReview(ctx context.Context, sel ast.SelectionSet, v *model.Review) graphql.Marshaler {
+func (ec *executionContext) marshalNReview2ᚖservicesᚋreviewsᚋgraphᚋmodelᚐReview(ctx context.Context, sel ast.SelectionSet, v *model.Review) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -2672,11 +2672,11 @@ func (ec *executionContext) marshalNString2string(ctx context.Context, sel ast.S
 	return res
 }
 
-func (ec *executionContext) marshalNUser2dih_modulesᚋreviewsᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2servicesᚋreviewsᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v model.User) graphql.Marshaler {
 	return ec._User(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNUser2ᚖdih_modulesᚋreviewsᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚖservicesᚋreviewsᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -3042,22 +3042,22 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return ec.marshalOBoolean2bool(ctx, sel, *v)
 }
 
-func (ec *executionContext) marshalOProduct2dih_modulesᚋreviewsᚋgraphᚋmodelᚐProduct(ctx context.Context, sel ast.SelectionSet, v model.Product) graphql.Marshaler {
+func (ec *executionContext) marshalOProduct2servicesᚋreviewsᚋgraphᚋmodelᚐProduct(ctx context.Context, sel ast.SelectionSet, v model.Product) graphql.Marshaler {
 	return ec._Product(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalOProduct2ᚖdih_modulesᚋreviewsᚋgraphᚋmodelᚐProduct(ctx context.Context, sel ast.SelectionSet, v *model.Product) graphql.Marshaler {
+func (ec *executionContext) marshalOProduct2ᚖservicesᚋreviewsᚋgraphᚋmodelᚐProduct(ctx context.Context, sel ast.SelectionSet, v *model.Product) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Product(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOReview2dih_modulesᚋreviewsᚋgraphᚋmodelᚐReview(ctx context.Context, sel ast.SelectionSet, v model.Review) graphql.Marshaler {
+func (ec *executionContext) marshalOReview2servicesᚋreviewsᚋgraphᚋmodelᚐReview(ctx context.Context, sel ast.SelectionSet, v model.Review) graphql.Marshaler {
 	return ec._Review(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalOReview2ᚕᚖdih_modulesᚋreviewsᚋgraphᚋmodelᚐReview(ctx context.Context, sel ast.SelectionSet, v []*model.Review) graphql.Marshaler {
+func (ec *executionContext) marshalOReview2ᚕᚖservicesᚋreviewsᚋgraphᚋmodelᚐReview(ctx context.Context, sel ast.SelectionSet, v []*model.Review) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -3084,7 +3084,7 @@ func (ec *executionContext) marshalOReview2ᚕᚖdih_modulesᚋreviewsᚋgraph�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOReview2ᚖdih_modulesᚋreviewsᚋgraphᚋmodelᚐReview(ctx, sel, v[i])
+			ret[i] = ec.marshalOReview2ᚖservicesᚋreviewsᚋgraphᚋmodelᚐReview(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -3097,7 +3097,7 @@ func (ec *executionContext) marshalOReview2ᚕᚖdih_modulesᚋreviewsᚋgraph�
 	return ret
 }
 
-func (ec *executionContext) marshalOReview2ᚖdih_modulesᚋreviewsᚋgraphᚋmodelᚐReview(ctx context.Context, sel ast.SelectionSet, v *model.Review) graphql.Marshaler {
+func (ec *executionContext) marshalOReview2ᚖservicesᚋreviewsᚋgraphᚋmodelᚐReview(ctx context.Context, sel ast.SelectionSet, v *model.Review) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -3127,11 +3127,11 @@ func (ec *executionContext) marshalOString2ᚖstring(ctx context.Context, sel as
 	return ec.marshalOString2string(ctx, sel, *v)
 }
 
-func (ec *executionContext) marshalOUser2dih_modulesᚋreviewsᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v model.User) graphql.Marshaler {
+func (ec *executionContext) marshalOUser2servicesᚋreviewsᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v model.User) graphql.Marshaler {
 	return ec._User(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalOUser2ᚖdih_modulesᚋreviewsᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
+func (ec *executionContext) marshalOUser2ᚖservicesᚋreviewsᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}

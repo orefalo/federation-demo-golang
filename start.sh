@@ -6,22 +6,22 @@ function cleanup {
     kill "$REVIEWS_PID"
     kill "$INVENTORY_PID"
 }
+
 trap cleanup EXIT
 
-
-/tmp/srv-accounts &
+./services/accounts/accounts &
 ACCOUNTS_PID=$!
 
-/tmp/srv-products &
+./services/products/products &
 PRODUCTS_PID=$!
 
-/tmp/srv-reviews &
+./services/reviews/reviews &
 REVIEWS_PID=$!
 
-/tmp/srv-inventory &
+./services/inventory/inventory &
 INVENTORY_PID=$!
 
 sleep 4
 
-cd $p/services/gateway
+cd ./services/gateway
 node index.js

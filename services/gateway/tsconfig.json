@@ -2,11 +2,11 @@
   "compilerOptions": {
     "preserveConstEnums": true,
     "strictNullChecks": true,
-    "module": "commonjs",
+    "module": "es7",
     "sourceMap": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "ES6",
+    "target": "ES7",
     "lib": ["esnext"],
     "outDir": "./",
     "moduleResolution": "node",
@@ -23,7 +23,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "typeRoots": ["./node_modules/@types"]

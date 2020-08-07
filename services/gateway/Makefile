@@ -1,3 +1,3 @@
 build:
 	npm i
-	tsc index.ts
+	tsc --esModuleInterop true index.ts

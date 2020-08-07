@@ -1,4 +1,4 @@
-import * as express from "express"
+import express from "express"
 import { ApolloGateway } from "@apollo/gateway"
 import { ApolloServer } from "apollo-server-express"
 

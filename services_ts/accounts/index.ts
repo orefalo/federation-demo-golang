@@ -1,52 +1,28 @@
-import { ApolloServer, gql } from "@snapcore/apollo-server-snapcore"
-import { buildFederatedSchema } from "@apollo/federation"
-import { GraphQLModule } from "@graphql-modules/core"
+import fs from "fs"
+import { ApolloServer, makeExecutableSchema } from "apollo-server"
+import { buildFederatedSchema } from "@apollo/federation/dist/service/buildFederatedSchema"
+import { join } from "path"
+import { parse } from "graphql/language/parser"
+import { resolvers } from "./resolvers"
 
-const AccountsModule = new GraphQLModule({
-  name: "AccountsModule",
-  typeDefs: gql`
-    extend type Query {
-      me: User
-    }
+const data = fs.readFileSync(join(__dirname, "schema.graphqls"), { encoding: "utf8", flag: "r" })
 
-    type User @key(fields: "id") {
-      id: ID!
-      name: String
-      username: String
-    }
-  `,
-  resolvers: {
-    Query: {
-      me() {
-        return users[0]
-      }
-    },
-    User: {
-      __resolveReference(object) {
-        return users.find(user => user.id === object.id)
-      }
-    }
-  }
-})
+var parsed = parse(data)
+if (!parsed || parsed.kind !== "Document") {
+  throw new Error("Not a valid GraphQL schema.")
+}
+
+console.log(data)
 
 const server = new ApolloServer({
-  schema: buildFederatedSchema([AccountsModule]),
-  context: session => session
+  schema: buildFederatedSchema([
+    {
+      typeDefs: parsed,
+      resolvers,
+    },
+  ]),
 })
 
-const users = [
-  {
-    id: "1",
-    name: "Ada Lovelace",
-    birthDate: "1815-12-10",
-    username: "@ada"
-  },
-  {
-    id: "2",
-    name: "Alan Turing",
-    birthDate: "1912-06-23",
-    username: "@complete"
-  }
-]
-
-export const handler = server.createHandler();
+server.listen({ hostname: "127.0.0.1", port: 4001 }).then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`)
+})

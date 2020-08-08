@@ -9,6 +9,8 @@ function cleanup {
 
 trap cleanup EXIT
 
+echo "Please ensure you have run 'make build_golang' first"
+
 ./services/accounts/accounts &
 ACCOUNTS_PID=$!
 

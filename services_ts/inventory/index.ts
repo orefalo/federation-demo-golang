@@ -23,6 +23,13 @@ const server = new ApolloServer({
   ]),
 })
 
-server.listen({ hostname: "127.0.0.1", port: 4004 }).then(({ url }) => {
+var env = process.env.PORT
+if (!env) {
+  env = "8080"
+}
+
+const port = parseInt(env, 10) || 8080
+
+server.listen({ hostname: "127.0.0.1", port }).then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`)
 })

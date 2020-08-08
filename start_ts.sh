@@ -11,23 +11,29 @@ echo "Please ensure you have run 'make build_ts' first"
 
 trap cleanup EXIT
 
-cd ./services_ts/accounts/accounts
+p=`pwd`
+
+cd $p/services_ts/accounts
+export PORT=4001
 node index.js &
 ACCOUNTS_PID=$!
 
-./services_ts/products/products
-node index.js &
-PRODUCTS_PID=$!
-
-./services_ts/reviews/reviews
+cd $p/services_ts/reviews
+export PORT=4002
 node index.js &
 REVIEWS_PID=$!
 
-./services_ts/inventory/inventory
+cd $p/services_ts/products
+export PORT=4003
+node index.js &
+PRODUCTS_PID=$!
+
+cd $p/services_ts/inventory
+export PORT=4004
 node index.js &
 INVENTORY_PID=$!
 
 sleep 4
 
-cd ./services_ts/gateway
+cd $p/services_ts/gateway
 node index.js

@@ -1,62 +1,35 @@
-const { ApolloServer, gql } = require("apollo-server")
-const { buildFederatedSchema } = require("@apollo/federation")
-const typeDefs = gql`
-  type Discussion @key(fields: "id") {
-    id: ID!
-    sender: User
-    receiver: User
-    message: String
-  }
-  extend type User @key(fields: "id") {
-    id: ID! @external
-    discussions: [Discussion]
-  }
-`
-const resolvers = {
-  Discussion: {
-    __resolveReference(object) {
-      return {
-        ...object,
-        ...discussions.find((discussion) => discussion.id === object.id),
-      }
-    },
-    sender(discussion) {
-      return { __typename: "User", id: discussion.sender }
-    },
-    receiver(discussion) {
-      return { __typename: "User", id: discussion.receiver }
-    },
-  },
-  User: {
-    discussions(user) {
-      return discussions.filter((discussion) => [discussion.sender, discussion.receiver].includes(user.id))
-    },
-  },
+import fs from "fs"
+import { ApolloServer, makeExecutableSchema } from "apollo-server"
+import { buildFederatedSchema } from "@apollo/federation/dist/service/buildFederatedSchema"
+import { join } from "path"
+import { parse } from "graphql/language/parser"
+import { resolvers } from "./resolvers"
+
+const data = fs.readFileSync(join(__dirname, "schema.graphqls"), { encoding: "utf8", flag: "r" })
+
+var parsed = parse(data)
+if (!parsed || parsed.kind !== "Document") {
+  throw new Error("Not a valid GraphQL schema.")
 }
+
+console.log(data)
+
 const server = new ApolloServer({
-  debug: true,
-  tracing: true,
   schema: buildFederatedSchema([
     {
-      typeDefs,
+      typeDefs: parsed,
       resolvers,
     },
   ]),
 })
-server.listen({ port: 4005 }).then(({ url }) => {
+
+var env = process.env.PORT
+if (!env) {
+  env = "8080"
+}
+
+const port = parseInt(env, 10) || 8080
+
+server.listen({ hostname: "127.0.0.1", port }).then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`)
 })
-const discussions = [
-  {
-    id: "1",
-    sender: "1",
-    receiver: "2",
-    message: "@ada > @complete",
-  },
-  {
-    id: "2",
-    sender: "2",
-    receiver: "1",
-    message: "@complete > @ada",
-  },
-]

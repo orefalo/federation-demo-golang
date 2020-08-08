@@ -13,6 +13,7 @@ build_ts:
 	$(MAKE) -C services_ts/inventory build
 	$(MAKE) -C services_ts/products build
 	$(MAKE) -C services_ts/reviews build
+	$(MAKE) -C services_ts/chat build
 	$(MAKE) -C services_ts/gateway build
 
 start_ts:

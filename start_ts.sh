@@ -5,6 +5,7 @@ function cleanup {
     kill "$PRODUCTS_PID"
     kill "$REVIEWS_PID"
     kill "$INVENTORY_PID"
+    kill "$CHAT_PID"
 }
 
 echo "Please ensure you have run 'make build_ts' first"
@@ -32,6 +33,11 @@ cd $p/services_ts/inventory
 export PORT=4004
 node index.js &
 INVENTORY_PID=$!
+
+cd $p/services_ts/chat
+export PORT=4005
+node index.js &
+CHAT_PID=$!
 
 sleep 4
 

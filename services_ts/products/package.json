@@ -1,26 +1,24 @@
 {
-  "name": "federation-product",
+  "name": "federation-accounts",
   "private": true,
   "version": "1.0.0",
   "description": "",
   "main": "handler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "up": "npm i --no-package-lock && tsc && cd .. && faas rm ${npm_package_name} && faas up -f ${npm_package_name}.yml"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@apollo/federation": "^0.10.2",
-    "@snapcore/apollo-server-snapcore": "^1.0.1",
-    "@graphql-modules/core": "^0.7.13",
-    "graphql": "^14.5.8"
+    "@apollo/federation": "^0.19.1",
+    "apollo-server": "^2.16.1",
+    "graphql": "^15.3.0"
   },
   "devDependencies": {
-    "@snapcore/snapcore-types": "^1.0.0",
-    "@types/node": "^12.12.3",
-    "typescript": "^3.6.4"
+    "@types/node": "^14.0.27",
+    "@types/express-serve-static-core": "^4.17.9",
+    "typescript": "^3.9.7"
   }
 }

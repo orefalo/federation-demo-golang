@@ -25,5 +25,5 @@ var server = new apollo_server_1.ApolloServer({
 });
 server.listen({ hostname: "127.0.0.1", port: 4001 }).then(function (_a) {
     var url = _a.url;
-    console.log("\u00F0\u0178\u0161\u20AC Server ready at " + url);
+    console.log("\uD83D\uDE80 Server ready at " + url);
 });

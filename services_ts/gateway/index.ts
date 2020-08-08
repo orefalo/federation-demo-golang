@@ -26,7 +26,7 @@ const server = new ApolloServer({
   subscriptions: false,
   mocks: false,
   mockEntireSchema: false,
-  playground: false,
+  playground: true,
   context: (session) => session,
 })
 

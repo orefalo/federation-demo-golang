@@ -1,5 +1,9 @@
 ## Apollo Federation Demo
 
+## Setup
+
+go get github.com/99designs/gqlgen
+
 ### Golang version
 
 ```

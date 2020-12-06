@@ -1,5 +1,7 @@
 ## Apollo Federation Demo
 
+A side/side comparison of golang's gqlgen vs apollo federation capabilities highlighting issues with the golang implementation
+
 ## Setup
 
 go get github.com/99designs/gqlgen

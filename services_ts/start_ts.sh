@@ -14,32 +14,32 @@ trap cleanup EXIT
 
 p=`pwd`
 
-cd $p/services_ts/accounts
+cd $p/accounts
 export PORT=4001
 node index.js &
 ACCOUNTS_PID=$!
 
-cd $p/services_ts/reviews
+cd $p/reviews
 export PORT=4002
 node index.js &
 REVIEWS_PID=$!
 
-cd $p/services_ts/products
+cd $p/products
 export PORT=4003
 node index.js &
 PRODUCTS_PID=$!
 
-cd $p/services_ts/inventory
+cd $p/inventory
 export PORT=4004
 node index.js &
 INVENTORY_PID=$!
 
-cd $p/services_ts/chat
+cd $p/chat
 export PORT=4005
 node index.js &
 CHAT_PID=$!
 
 sleep 4
 
-cd $p/services_ts/gateway
+cd $p/gateway
 node index.js

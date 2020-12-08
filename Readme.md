@@ -16,6 +16,7 @@ make start_golang
 ### Typescript version
 
 ```
+npm install -g @microsoft/rush
 make build_ts
 make start_ts
 ```

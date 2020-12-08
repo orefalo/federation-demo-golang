@@ -9,12 +9,7 @@ start_golang:
 	./start_golang.sh
 
 build_ts:
-	$(MAKE) -C services_ts/accounts build
-	$(MAKE) -C services_ts/inventory build
-	$(MAKE) -C services_ts/products build
-	$(MAKE) -C services_ts/reviews build
-	$(MAKE) -C services_ts/chat build
-	$(MAKE) -C services_ts/gateway build
+	cd services_ts && rush update && rush build
 
 start_ts:
 	./start_ts.sh

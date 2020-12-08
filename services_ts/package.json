@@ -1,0 +1,15 @@
+{
+  "name": "federation-toplevel",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "update": "rush update",
+    "build": "rush build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,10 @@
+type Discussion @key(fields: "id") {
+  id: ID!
+  sender: User
+  receiver: User
+  message: String
+}
+extend type User @key(fields: "id") {
+  id: ID! @external
+  discussions: [Discussion]
+}

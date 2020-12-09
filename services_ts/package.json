@@ -4,9 +4,13 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "server": "concurrently -k npm:server:*",
-    "server:accounts": "nodemon ./accounts/index.js",
-    "server:gateway": "wait-on tcp:4001 && nodemon ./index.js",
+    "server": "concurrently -k \"npm:server:*\"",
+    "server:accounts": "cd accounts && PORT=4001 nodemon ./index.js",
+    "server:chat": "cd chat && PORT=4002 nodemon ./index.js",
+    "server:inventory": "cd inventory && PORT=4003 nodemon ./index.js",
+    "server:products": "cd products && PORT=4004 nodemon ./index.js",
+    "server:reviews": "cd reviews && PORT=4005 nodemon ./index.js",
+    "server:gateway": "wait-on tcp:4001 && wait-on tcp:4002 && wait-on tcp:4003 && wait-on tcp:4004 && wait-on tcp:4005 && cd gateway && nodemon ./index.js",
     "update": "rush update",
     "build": "rush build"
   },

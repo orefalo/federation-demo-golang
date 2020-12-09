@@ -16,7 +16,9 @@ make start_golang
 ### Typescript version
 
 ```
+cd service_ts
 npm install -g @microsoft/rush
-make build_ts
-make start_ts
+npm build
+npm run server
+open browser to http://127.0.0.1:8082/
 ```

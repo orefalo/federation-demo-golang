@@ -1,16 +1,16 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.resolvers = void 0;
-const users_1 = require("./users");
+var users_1 = require("./users");
 exports.resolvers = {
     Query: {
-        me() {
+        me: function () {
             return users_1.users[0];
-        },
+        }
     },
     User: {
-        __resolveReference(object) {
-            return users_1.users.find((user) => user.id === object.id);
-        },
-    },
+        __resolveReference: function (object) {
+            return users_1.users.find(function (user) { return user.id === object.id; });
+        }
+    }
 };

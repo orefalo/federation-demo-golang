@@ -1,7 +1,12 @@
-import express from "express";
-import { ApolloGateway } from "@apollo/gateway";
-import { ApolloServer } from "apollo-server-express";
-const gateway = new ApolloGateway({
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+exports.__esModule = true;
+var express_1 = __importDefault(require("express"));
+var gateway_1 = require("@apollo/gateway");
+var apollo_server_express_1 = require("apollo-server-express");
+var gateway = new gateway_1.ApolloGateway({
     serviceList: [
         { name: "accounts", url: "http://localhost:4001" },
         { name: "reviews", url: "http://localhost:4002" },
@@ -10,21 +15,27 @@ const gateway = new ApolloGateway({
         { name: "chat", url: "http://localhost:4005" },
     ],
     debug: true,
+    // reload changed endpoints every10mn - might not be such great idea : prefer k8s rolling update
     experimental_pollInterval: 10 * 60 * 1000,
-    serviceHealthCheck: true,
+    // run a service health check before replacing the schema
+    serviceHealthCheck: true
 });
-const app = express();
-const path = "/";
-const server = new ApolloServer({
-    gateway,
+var app = express_1["default"]();
+var path = "/";
+var server = new apollo_server_express_1.ApolloServer({
+    gateway: gateway,
     introspection: true,
     subscriptions: false,
     mocks: false,
     mockEntireSchema: false,
     playground: true,
-    context: (session) => session,
+    context: function (session) { return session; }
 });
-server.applyMiddleware({ app, path });
-const HOSTNAME = "127.0.0.1";
-const PORT = 8082;
-app.listen({ port: PORT, hostname: HOSTNAME }, () => console.log(`🚀 GraphQL Federation Server ready at http://${HOSTNAME}:${PORT}${server.graphqlPath}`));
+//Mount a jwt or other authentication middleware that is run before the GraphQL execution
+// app.use(path, jwtCheck)
+server.applyMiddleware({ app: app, path: path });
+var HOSTNAME = "127.0.0.1";
+var PORT = 8082;
+app.listen({ port: PORT, hostname: HOSTNAME }, function () {
+    return console.log("\uD83D\uDE80 GraphQL Federation Server ready at http://" + HOSTNAME + ":" + PORT + server.graphqlPath);
+});

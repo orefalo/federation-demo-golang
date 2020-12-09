@@ -1,16 +1,16 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.resolvers = void 0;
-const products_1 = require("./products");
+var products_1 = require("./products");
 exports.resolvers = {
     Product: {
-        __resolveReference(object) {
-            return products_1.products.find((product) => product.upc === object.upc);
-        },
+        __resolveReference: function (object) {
+            return products_1.products.find(function (product) { return product.upc === object.upc; });
+        }
     },
     Query: {
-        topProducts(_, args) {
+        topProducts: function (_, args) {
             return products_1.products.slice(0, args.first);
-        },
-    },
+        }
+    }
 };
